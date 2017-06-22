@@ -1,0 +1,59 @@
+body, p, dd, dl, form, h1, h2, h3, h4 {
+  margin: 0;
+}
+
+ul, ol, input, textarea {
+  margin: 0;
+  padding: 0;
+}
+
+b, h1, h2, h3, h4, strong {
+  font-weight: normal;
+}
+
+li {
+  list-style: none;
+}
+
+a, s {
+  outline: 0 none;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+img {
+  border: 0 none;
+  vertical-align: top;
+}
+
+button, input {
+  outline: 0 none;
+  border-radius: 0;
+  border: 0 none;
+  appearance: none;
+}
+
+i, em {
+  font-style: normal;
+}
+
+textarea {
+  resize: none;
+  outline: 0 none;
+  overflow: auto;
+}
+
+body, button, input, textarea {
+  font-family: "Microsoft YaHei", Helvetica, Arial, sans-serif;
+}
+
+html, body {
+  height: 100%;
+  line-height: 1;
+  -webkit-text-size-adjust: 100%;
+  overflow: hidden;
+}
+
+html * {
+  -webkit-tap-highlight-color: transparent;
+}
