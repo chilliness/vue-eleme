@@ -1,43 +1,60 @@
-## 仿饿了么APP
+## 仿饿了么
+
+> 亮点
 
 ``` bash
-A Vue.js project
+1、涵盖vue及其全家桶常用知识点
 
-本实例是基于vue 2.0仿饿了么APP
+2、解决苹果手机橡皮筋效果和微信下拉露底效果
 ```
 
 > 效果
 
-![Image text](https://raw.githubusercontent.com/chilliness/eleme/master/src/assets/demo.gif)
+![最终效果](/demo/demo.gif)
 
 > 注意事项
 
 ``` bash
-1、本实例是用vue-cli提供的webpack模板构建
+1、CSS代码使用Scss编写
 
-2、CSS代码使用了sass编写，JS代码多数部分使用了ES6
-
-3、页面滚动使用better-scroll插件
+2、页面滚动使用better-scroll插件
 ```
 
-> 最后一句
-
-本实例用到了vue + vue-router + vuex + axios等。
-
-## Build Setup
+> 功能实现
 
 ``` bash
-# install dependencies
-npm install
+01、商品页展示（包含左右联动，浏览状态保留）
 
-# serve with hot reload at localhost:8080
-npm run dev
+02、评价页展示
 
-# build for production with minification
-npm run build
+03、商家页展示
 
-# build for production and view the bundle analyzer report
-npm run build --report
+04、商品详情页展示
+
+05、添加购物车功能
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Run your tests
+```
+npm run test
+```
+
+### Lints and fixes files
+```
+npm run lint
+```

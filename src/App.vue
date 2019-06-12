@@ -1,24 +1,60 @@
 <template>
   <div id="app">
-    <headers></headers>
-    <keep-alive>
-      <router-view></router-view>
+    <Nav :seller="seller"></Nav>
+    <keep-alive :include="['Goods']">
+      <router-view :seller="seller" :ratings="ratings" :goods="goods"></router-view>
     </keep-alive>
-    <carts></carts>
+    <Cart></Cart>
+    <Loading v-if="isLoading"></Loading>
   </div>
 </template>
 
 <script>
-  import headers from './components/headers/headers';
-  import carts from './components/carts/carts';
+import Nav from '@/components/nav';
+import Cart from '@/components/cart';
+import Loading from '@/components/loading';
 
-  export default {
-    components: {
-      headers,
-      carts
+export default {
+  name: 'App',
+  components: { Nav, Cart, Loading },
+  data() {
+    return {
+      seller: {},
+      ratings: [],
+      goods: [],
+      isAjax: false,
+      isLoading: true
+    };
+  },
+  mounted() {
+    this.handleFetchData();
+  },
+  methods: {
+    async handleFetchData() {
+      if (this.isAjax) {
+        return;
+      }
+
+      try {
+        this.isAjax = true;
+        let res = await this.$http({ url: this.$api.list });
+        this.isAjax = false;
+
+        if (res.code === 200) {
+          this.isLoading = false;
+          this.seller = res.data.seller;
+          this.ratings = res.data.ratings;
+          this.goods = res.data.goods;
+        } else {
+          this.$toast({ msg: this.$api.msg });
+        }
+      } catch (e) {
+        this.isAjax = false;
+        this.$toast({ msg: this.$api.msg });
+      }
     }
-  };
+  }
+};
 </script>
 
-<style>
-</style>
+<style lang="scss"></style>
