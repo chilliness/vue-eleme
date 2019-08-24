@@ -10,9 +10,7 @@
 </template>
 
 <script>
-import Nav from '@/components/nav';
-import Cart from '@/components/cart';
-import Loading from '@/components/loading';
+import { Nav, Cart, Loading } from '@/components';
 
 export default {
   name: 'App',

@@ -1,6 +1,6 @@
 <template>
   <ul class="star-wrap">
-    <li :class="['item-box', 'item-box-' + size, (index < score ? 'on': '')]" v-for="(item, index) in count" :key="index"></li>
+    <li :class="['star-item', 'star-item-' + size, (index < score ? 'on': '')]" v-for="(item, index) in handleCount()" :key="index"></li>
   </ul>
 </template>
 
@@ -20,6 +20,11 @@ export default {
       type: Number,
       default: 5
     }
+  },
+  methods: {
+    handleCount() {
+      return [...''.padEnd(this.count)];
+    }
   }
 };
 </script>
@@ -27,28 +32,28 @@ export default {
 <style lang="scss" scoped>
 .star-wrap {
   @include frow();
-  .item-box {
+  .star-item {
     background: url(./img/star-off.png) no-repeat center;
     background-size: contain;
     &.on {
       background-image: url(./img/star-on.png);
     }
   }
-  .item-box-10 {
+  .star-item-10 {
     width: 10px;
     height: 10px;
     &:nth-of-type(n + 2) {
       margin-left: 3px;
     }
   }
-  .item-box-18 {
+  .star-item-18 {
     width: 18px;
     height: 18px;
     &:nth-of-type(n + 2) {
       margin-left: 6px;
     }
   }
-  .item-box-24 {
+  .star-item-24 {
     width: 24px;
     height: 24px;
     &:nth-of-type(n + 2) {

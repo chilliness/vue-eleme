@@ -1,14 +1,15 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import Goods from '@/pages/goods';
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
     {
-      path: '/(goods)?',
+      path: '/goods',
       name: 'goods',
-      component: () => import('@/pages/goods')
+      component: Goods
     },
     {
       path: '/rating',
@@ -22,7 +23,7 @@ export default new Router({
     },
     {
       path: '*',
-      redirect: '/'
+      redirect: '/goods'
     }
   ]
 });

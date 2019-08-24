@@ -11,13 +11,13 @@
       </ul>
     </div>
     <div class="right-content" ref="scrollRight">
-      <div class="list-box">
-        <div class="item-box" v-for="(item, index) in goods" :key="index" ref="box">
+      <div class="list-box" ref="listBox">
+        <div class="item-box" v-for="(item, index) in goods" :key="index">
           <h3 class="caption">{{item.name}}</h3>
           <ul class="_list-box">
             <li class="_item-box" v-for="(_item, _index) in item.foods" :key="_index" @click="handleShowFood(_item)">
               <div class="img-box">
-                <img class="img" :src="_item.icon" alt="图片">
+                <img class="img" :src="_item.icon" alt="图片" />
               </div>
               <div class="info-box">
                 <h4 class="title">{{_item.name}}</h4>
@@ -34,7 +34,7 @@
                   <span class="text old" v-if="_item.oldPrice">{{'￥' + _item.oldPrice}}</span>
                 </div>
               </div>
-              <div class="btn-bar" @click.stop>
+              <div class="btn-bar">
                 <Btn :food="_item"></Btn>
               </div>
             </li>
@@ -79,7 +79,7 @@
                 <div class="right-box">
                   <span class="name">{{item.username}}</span>
                   <div class="img-box">
-                    <img class="img" :src="item.avatar" alt="头像">
+                    <img class="img" :src="item.avatar" alt="头像" />
                   </div>
                 </div>
               </div>
@@ -149,7 +149,7 @@ export default {
       return this.isHasContent ? arr.filter(item => item.text) : arr;
     }
   },
-  mounted() {
+  activated() {
     this.handleInitScroll('scrollLeft');
     this.handleInitScroll('scrollRight');
     this.handleInitScroll('scrollFood');
@@ -159,29 +159,30 @@ export default {
       ref,
       config = { scrollY: true, click: true, probeType: 3 }
     ) {
-      this.$nextTick(() => {
-        if (!this[ref]) {
-          this[ref] = new this.$BScroll(this.$refs[ref], config);
+      if (!this[ref]) {
+        this[ref] = new this.$BScroll(this.$refs[ref], config);
 
-          if (ref === 'scrollRight') {
-            let arr = [];
+        if (ref === 'scrollRight') {
+          let arr = [];
 
-            this[ref].on('scroll', pos => {
-              if (!arr.length) {
-                this.$refs.box.forEach(item => arr.push(-item.offsetTop));
-                arr.push(-Infinity);
-              }
-
-              this.nowIndex = Math.max(
-                0,
-                arr.findIndex(item => item < pos.y) - 1
+          this[ref].on('scroll', pos => {
+            if (!arr.length) {
+              [...this.$refs.listBox.children].forEach(item =>
+                arr.push(-item.offsetTop)
               );
-            });
-          }
-        } else {
-          this[ref].refresh();
+              arr.push(-Infinity);
+            }
+
+            // 性能优化
+            let nowIndex = Math.max(0, arr.findIndex(item => item < pos.y) - 1);
+            if (nowIndex !== this.nowIndex) {
+              this.nowIndex = nowIndex;
+            }
+          });
         }
-      });
+      } else {
+        this[ref].refresh();
+      }
     },
     handleShowFood(food) {
       this.nowType = -1;
@@ -194,8 +195,9 @@ export default {
       this.isHasContent = isHasContent;
     },
     handleSelect(index) {
-      if (this.$refs.box[index] && this.scrollRight) {
-        this.scrollRight.scrollToElement(this.$refs.box[index], 300);
+      let item = this.$refs.listBox.children[index];
+      if (item && this.scrollRight) {
+        this.scrollRight.scrollToElement(item, 300);
       }
     }
   }

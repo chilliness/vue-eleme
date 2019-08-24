@@ -5,7 +5,7 @@
         <div class="bg-box" :style="{backgroundImage: 'url(' + seller.avatar + ')'}"></div>
         <div class="top-box">
           <div class="img-box">
-            <img class="img" :src="seller.avatar" alt="logo">
+            <img class="img" :src="seller.avatar" alt="logo" />
           </div>
           <div class="intro-box">
             <h2 class="item-box name">
@@ -18,7 +18,7 @@
               <span>{{seller.supports[0].description}}</span>
             </div>
           </div>
-          <div class="btn-more" v-if="seller.supports" @click="isShow = true">
+          <div class="btn-more" @click="isShow = true">
             <span class="text">{{seller.supports.length + '个'}}</span>
             <i class="iconfont icon-right-arrow"></i>
           </div>
@@ -35,7 +35,7 @@
       </div>
     </div>
     <div class="nav-bar">
-      <a class="item-box" :class="{active: $route.name === item.name}" v-for="(item, index) in nav" :key="index" @click="$router.push({name: item.name})">{{item.text}}</a>
+      <router-link class="item-box" activeClass="active" :to="item.url" v-for="(item, index) in navList" :key="index">{{item.text}}</router-link>
     </div>
     <div class="mark-box" :class="{show: isShow}">
       <div class="content-outer" ref="scrollMark">
@@ -85,10 +85,10 @@ export default {
   },
   data() {
     return {
-      nav: [
-        { name: 'goods', text: '商品' },
-        { name: 'rating', text: '评价' },
-        { name: 'seller', text: '商家' }
+      navList: [
+        { url: '/goods', text: '商品' },
+        { url: '/rating', text: '评价' },
+        { url: '/seller', text: '商家' }
       ],
       isShow: false
     };

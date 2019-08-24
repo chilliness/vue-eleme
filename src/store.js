@@ -5,9 +5,13 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    isAnim: false,
     cartList: []
   },
   mutations: {
+    $handleIsAnim(state, bool) {
+      state.isAnim = bool;
+    },
     $handleCart(state, obj) {
       let list = [...state.cartList];
       let index = list.findIndex(item => item.id === obj.id);

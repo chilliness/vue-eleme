@@ -32,7 +32,7 @@
         <ul class="rating-list">
           <li class="item-box" v-for="(item, index) in _ratings" :key="index">
             <div class="img-box">
-              <img class="img" :src="item.avatar" alt="头像">
+              <img class="img" :src="item.avatar" alt="头像" />
             </div>
             <div class="info-box">
               <div class="name-bar">
@@ -123,13 +123,11 @@ export default {
   },
   methods: {
     handleInitScroll(ref, config = { scrollY: true, click: true }) {
-      this.$nextTick(() => {
-        if (!this[ref]) {
-          this[ref] = new this.$BScroll(this.$refs[ref], config);
-        } else {
-          this[ref].refresh();
-        }
-      });
+      if (!this[ref]) {
+        this[ref] = new this.$BScroll(this.$refs[ref], config);
+      } else {
+        this[ref].refresh();
+      }
     },
     handleToggle({ nowType, isHasContent }) {
       this.nowType = nowType;

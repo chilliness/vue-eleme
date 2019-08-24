@@ -17,12 +17,8 @@ export default {
   },
   computed: {
     _type() {
-      let str = 'decrease';
+      let str = '';
       switch (this.type) {
-        case 0:
-          str = 'decrease';
-          break;
-
         case 1:
           str = 'discount';
           break;
@@ -38,6 +34,9 @@ export default {
         case 4:
           str = 'guarantee';
           break;
+
+        default:
+          str = 'decrease';
       }
 
       return `icon-${str}`;

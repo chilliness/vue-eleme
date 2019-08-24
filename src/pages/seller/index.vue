@@ -57,7 +57,7 @@
         <div class="pic-bar" ref="scrollX">
           <ul class="pic-list">
             <li class="item-box" v-for="(item, index) in seller.pics" :key="index">
-              <img class="img" :src="item" alt="图片">
+              <img class="img" :src="item" alt="图片" />
             </li>
           </ul>
         </div>
@@ -90,13 +90,11 @@ export default {
   },
   methods: {
     handleInitScroll(ref, config = { scrollY: true, click: true }) {
-      this.$nextTick(() => {
-        if (!this[ref]) {
-          this[ref] = new this.$BScroll(this.$refs[ref], config);
-        } else {
-          this[ref].refresh();
-        }
-      });
+      if (!this[ref]) {
+        this[ref] = new this.$BScroll(this.$refs[ref], config);
+      } else {
+        this[ref].refresh();
+      }
     }
   }
 };

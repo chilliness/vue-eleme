@@ -4,7 +4,7 @@
       <div class="icon-box" @click="handleToggle">
         <span class="num" v-if="_cart.num">{{_cart.num}}</span>
         <div class="bg-box">
-          <i class="iconfont icon-cart" :class="{anim: isAnim}"></i>
+          <i class="iconfont icon-cart" :class="{anim: _isAnim}"></i>
         </div>
       </div>
       <div class="price-box">
@@ -42,8 +42,7 @@ export default {
   name: 'Cart',
   data() {
     return {
-      isShow: false,
-      isAnim: false
+      isShow: false
     };
   },
   computed: {
@@ -56,6 +55,9 @@ export default {
         payment += item.cartNum * item.price;
       });
       return { num, list, payment };
+    },
+    _isAnim() {
+      return this.$store.state.isAnim;
     }
   },
   mounted() {
@@ -83,15 +85,6 @@ export default {
   watch: {
     '_cart.num'(val, oldVal) {
       val < 1 && (this.isShow = false);
-      if (val > oldVal) {
-        this.isAnim = true;
-
-        clearTimeout(this.timerOut);
-        this.timerOut = setTimeout(() => {
-          clearTimeout(this.timerOut);
-          this.isAnim = false;
-        }, 200);
-      }
     }
   }
 };

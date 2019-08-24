@@ -1,10 +1,10 @@
 <template>
   <div class="btn-wrap">
-    <div class="btn-handle" v-if="!food.cartNum" @click="handleCart(1)">加入购物车</div>
+    <div class="btn-handle" v-if="!food.cartNum" @click="handleCart(1, $event)">加入购物车</div>
     <div class="btn-box" v-else>
-      <i class="iconfont icon-reduce" @click="handleCart(-1)"></i>
+      <i class="iconfont icon-reduce" @click="handleCart(-1, $event)"></i>
       <span class="num">{{food.cartNum}}</span>
-      <i class="iconfont icon-add" @click="handleCart(1)"></i>
+      <i class="iconfont icon-add" @click="handleCart(1, $event)"></i>
     </div>
   </div>
 </template>
@@ -26,7 +26,9 @@ export default {
     };
   },
   methods: {
-    handleCart(num) {
+    handleCart(num, e) {
+      e.stopPropagation();
+
       if (this.isAjax) {
         return;
       }
@@ -35,9 +37,10 @@ export default {
       this.food.cartNum += num;
       this.$store.commit('$handleCart', this.food);
       // 保证添加购物车动画的顺利执行
-      this.timerOut = setTimeout(() => {
-        clearTimeout(this.timerOut);
+      num > 0 && this.$store.commit('$handleIsAnim', true);
+      setTimeout(() => {
         this.isAjax = false;
+        num > 0 && this.$store.commit('$handleIsAnim', false);
       }, 200);
     }
   }
