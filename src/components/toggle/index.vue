@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     handleToggle(bool, num) {
-      this.$emit('toggle', { isHasContent: bool, nowType: num });
+      this.$emit('emitToggle', { isHasContent: bool, nowType: num });
     }
   }
 };

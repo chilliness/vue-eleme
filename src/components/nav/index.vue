@@ -38,7 +38,7 @@
       <router-link class="item-box" activeClass="active" :to="item.url" v-for="(item, index) in navList" :key="index">{{item.text}}</router-link>
     </div>
     <div class="mark-box" :class="{show: isShow}">
-      <div class="content-outer" ref="scrollMark">
+      <div class="content-outer" ref="scrollMarkRef">
         <div>
           <h3 class="name">{{seller.name}}</h3>
           <div class="star-bar">
@@ -100,7 +100,7 @@ export default {
     handleInitScroll(ref, config = { scrollY: true, click: true }) {
       this.$nextTick(() => {
         if (!this[ref]) {
-          this[ref] = new this.$BScroll(this.$refs[ref], config);
+          this[ref] = new this.$BScroll(this.$refs[`${ref}Ref`], config);
         } else {
           this[ref].refresh();
         }

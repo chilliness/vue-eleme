@@ -1,6 +1,6 @@
 <template>
   <div class="goods-wrap">
-    <div class="left-content" ref="scrollLeft">
+    <div class="left-content" ref="scrollLeftRef">
       <ul class="list-box">
         <li class="item-box" :class="{active: nowIndex === index}" v-for="(item, index) in goods" :key="index" @click="handleSelect(index)">
           <div class="text-box">
@@ -10,8 +10,8 @@
         </li>
       </ul>
     </div>
-    <div class="right-content" ref="scrollRight">
-      <div class="list-box" ref="listBox">
+    <div class="right-content" ref="scrollRightRef">
+      <div class="list-box" ref="listBoxRef">
         <div class="item-box" v-for="(item, index) in goods" :key="index">
           <h3 class="caption">{{item.name}}</h3>
           <ul class="_list-box">
@@ -42,7 +42,7 @@
         </div>
       </div>
     </div>
-    <div class="food-mark" :class="{show: food.isShow}" ref="scrollFood">
+    <div class="food-mark" :class="{show: food.isShow}" ref="scrollFoodRef">
       <div>
         <div class="pic-box" :style="{backgroundImage: 'url(' + food.image +')'}" v-if="food.image">
           <i class="iconfont icon-left-arrow" @click="food.isShow = false"></i>
@@ -71,7 +71,7 @@
         </div>
         <Divide></Divide>
         <div class="content-box">
-          <Toggle :data="_obj" @toggle="handleToggle"></Toggle>
+          <Toggle :data="_obj" @emitToggle="handleToggle"></Toggle>
           <ul class="rating-list">
             <li class="item-box" v-for="(item, index) in _ratings" :key="index">
               <div class="name-bar">
@@ -160,14 +160,14 @@ export default {
       config = { scrollY: true, click: true, probeType: 3 }
     ) {
       if (!this[ref]) {
-        this[ref] = new this.$BScroll(this.$refs[ref], config);
+        this[ref] = new this.$BScroll(this.$refs[`${ref}Ref`], config);
 
         if (ref === 'scrollRight') {
           let arr = [];
 
           this[ref].on('scroll', pos => {
             if (!arr.length) {
-              [...this.$refs.listBox.children].forEach(item =>
+              [...this.$refs.listBoxRef.children].forEach(item =>
                 arr.push(-item.offsetTop)
               );
               arr.push(-Infinity);
@@ -195,7 +195,7 @@ export default {
       this.isHasContent = isHasContent;
     },
     handleSelect(index) {
-      let item = this.$refs.listBox.children[index];
+      let item = this.$refs.listBoxRef.children[index];
       if (item && this.scrollRight) {
         this.scrollRight.scrollToElement(item, 300);
       }

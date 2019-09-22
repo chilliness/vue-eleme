@@ -1,5 +1,5 @@
 <template>
-  <div class="seller-wrap" ref="scroll">
+  <div class="seller-wrap" ref="scrollRef">
     <div>
       <div class="seller-box">
         <div class="top-box">
@@ -54,7 +54,7 @@
       <Divide></Divide>
       <div class="content-box">
         <h3 class="caption">商家实景</h3>
-        <div class="pic-bar" ref="scrollX">
+        <div class="pic-bar" ref="scrollXRef">
           <ul class="pic-list">
             <li class="item-box" v-for="(item, index) in seller.pics" :key="index">
               <img class="img" :src="item" alt="图片" />
@@ -91,7 +91,7 @@ export default {
   methods: {
     handleInitScroll(ref, config = { scrollY: true, click: true }) {
       if (!this[ref]) {
-        this[ref] = new this.$BScroll(this.$refs[ref], config);
+        this[ref] = new this.$BScroll(this.$refs[`${ref}Ref`], config);
       } else {
         this[ref].refresh();
       }

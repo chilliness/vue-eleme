@@ -21,7 +21,7 @@
           <span class="btn btn-cancel">购物车</span>
           <span class="btn btn-clear" @click="handleClear">清空</span>
         </div>
-        <div class="list-outer" ref="scroll">
+        <div class="list-outer" ref="scrollRef">
           <ul class="list-box">
             <li class="item-box" v-for="(item, index) in _cart.list" :key="index">
               <span class="text">{{item.name}}</span>
@@ -67,7 +67,7 @@ export default {
     handleInitScroll(ref, config = { scrollY: true, click: true }) {
       this.$nextTick(() => {
         if (!this[ref]) {
-          this[ref] = new this.$BScroll(this.$refs[ref], config);
+          this[ref] = new this.$BScroll(this.$refs[`${ref}Ref`], config);
         } else {
           this[ref].refresh();
         }

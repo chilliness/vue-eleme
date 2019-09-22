@@ -1,5 +1,5 @@
 <template>
-  <div class="rating-wrap" ref="scroll">
+  <div class="rating-wrap" ref="scrollRef">
     <div>
       <div class="rating-box">
         <div class="left-box">
@@ -28,7 +28,7 @@
       </div>
       <Divide></Divide>
       <div class="content-box">
-        <Toggle :data="_obj" @toggle="handleToggle"></Toggle>
+        <Toggle :data="_obj" @emitToggle="handleToggle"></Toggle>
         <ul class="rating-list">
           <li class="item-box" v-for="(item, index) in _ratings" :key="index">
             <div class="img-box">
@@ -124,7 +124,7 @@ export default {
   methods: {
     handleInitScroll(ref, config = { scrollY: true, click: true }) {
       if (!this[ref]) {
-        this[ref] = new this.$BScroll(this.$refs[ref], config);
+        this[ref] = new this.$BScroll(this.$refs[`${ref}Ref`], config);
       } else {
         this[ref].refresh();
       }

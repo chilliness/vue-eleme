@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     handleCount() {
-      return [...''.padEnd(this.count)];
+      return Array(this.count).fill('');
     }
   }
 };
